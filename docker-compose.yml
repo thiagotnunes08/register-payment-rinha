@@ -20,7 +20,7 @@ services:
 
 
   api1:
-    image: thiagotnunes08/rinha-api-quarkus:1.0
+    image: thiagotnunes08/payment-register:1.0
     hostname: api1
     environment:
       - quarkus.datasource.jdbc.url=jdbc:postgresql://rinha-postgres:5432/postgres
@@ -39,7 +39,7 @@ services:
   #          cpus: "0.25"
 
   api2:
-    image: thiagotnunes08/rinha-api-quarkus:1.0
+    image: thiagotnunes08/payment-register:1.0
     hostname: api2
     environment:
       - quarkus.datasource.jdbc.url=jdbc:postgresql://rinha-postgres:5432/postgres

@@ -2,7 +2,6 @@ package br.com.rinha.quarkus.repositories;
 
 import br.com.rinha.quarkus.dto.PaymentSummaryDTO;
 import br.com.rinha.quarkus.entities.Payment;
-import br.com.rinha.quarkus.entities.Processor;
 import br.com.rinha.quarkus.entities.Status;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
