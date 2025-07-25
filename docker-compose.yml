@@ -12,12 +12,11 @@ services:
       - "5432:5432"
     networks:
       - rinha-network
-  #    deploy:
-  #      resources:
-  #        limits:
-  #          memory: "300MB"
-  #          cpus: "0.5"
-
+    deploy:
+        resources:
+          limits:
+            memory: "170MB"
+            cpus: "0.5"
 
   api1:
     image: thiagotnunes08/payment-register:1.0
@@ -29,14 +28,13 @@ services:
       - "8080"
     networks:
       - rinha-network
-      - payment-processor
     depends_on:
       - rinha-postgres
-  #    deploy:
-  #      resources:
-  #        limits:
-  #          memory: "125MB"
-  #          cpus: "0.25"
+    deploy:
+        resources:
+          limits:
+            memory: "55MB"
+            cpus: "0.25"
 
   api2:
     image: thiagotnunes08/payment-register:1.0
@@ -48,33 +46,32 @@ services:
       - "8080"
     networks:
       - rinha-network
-      - payment-processor
     depends_on:
       - rinha-postgres
-  #    deploy:
-  #      resources:
-  #        limits:
-  #          memory: "125MB"
-  #          cpus: "0.25"
+    deploy:
+        resources:
+          limits:
+            memory: "55MB"
+            cpus: "0.25"
 
   payment-processor:
-    image: thiagotnunes08/my-payment-processor:1.0
+    image: thiagotnunes08/payment-processor:1.0
     hostname: payment-processor
     environment:
       - quarkus.datasource.jdbc.url=jdbc:postgresql://rinha-postgres:5432/postgres
       - CRON_JOB=1s
-      - LIMIT_QUERY=50
+      - LIMIT_QUERY=300
       - quarkus.hibernate-orm.log.sql=false
     networks:
       - rinha-network
       - payment-processor
     depends_on:
       - rinha-postgres
-  #    deploy:
-  #      resources:
-  #        limits:
-  #          memory: "125MB"
-  #          cpus: "0.25"
+    deploy:
+        resources:
+          limits:
+            memory: "50MB"
+            cpus: "0.25"
 
   nginx:
     image: nginx:stable-alpine3.21-perl
@@ -87,11 +84,11 @@ services:
     depends_on:
       - api1
       - api2
-#    deploy:
-#      resources:
-#        limits:
-#          memory: "50MB"
-#          cpus: "0.25"
+    deploy:
+      resources:
+        limits:
+          memory: "20MB"
+          cpus: "0.25"
 
 networks:
   rinha-network:

@@ -12,9 +12,7 @@ import java.util.UUID;
 public class Payment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "correlation_id",unique = true)
+    @Column(name = "correlation_id")
     private UUID correlationId;
     private BigDecimal amount;
     private Status status;
@@ -22,11 +20,11 @@ public class Payment {
     @Column(name = "requested_at")
     private Instant requestedAt;
 
-    public Payment(UUID correlationId, BigDecimal amount) {
+    public Payment(UUID correlationId, BigDecimal amount, Instant instant) {
         this.correlationId = correlationId;
         this.amount = amount;
         this.status = Status.PENDING;
-        this.requestedAt = Instant.now();
+        this.requestedAt = instant;
     }
 
     @Deprecated
@@ -34,27 +32,4 @@ public class Payment {
 
     }
 
-    public void setProcessor(Processor processor) {
-        this.processor = processor;
-    }
-
-    public void updateStatus(Status status) {
-        this.status = status;
-    }
-
-    public UUID getCorrelationId() {
-        return correlationId;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public Instant getRequestedAt() {
-        return requestedAt;
-    }
-
-    public Long getId() {
-        return id;
-    }
 }

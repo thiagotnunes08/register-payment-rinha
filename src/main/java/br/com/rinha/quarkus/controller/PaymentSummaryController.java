@@ -7,6 +7,7 @@ import br.com.rinha.quarkus.dto.PaymentSummaryResponse;
 import br.com.rinha.quarkus.entities.Processor;
 import br.com.rinha.quarkus.entities.Status;
 import br.com.rinha.quarkus.repositories.PaymentRepository;
+import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -28,6 +29,7 @@ public class PaymentSummaryController {
     PaymentRepository paymentRepository;
 
     @GET
+    @RunOnVirtualThread
     public PaymentSummaryResponse getSummary(@QueryParam("from") String from,
                                              @QueryParam("to") String to) {
 

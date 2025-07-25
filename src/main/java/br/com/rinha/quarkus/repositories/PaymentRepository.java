@@ -5,11 +5,14 @@ import br.com.rinha.quarkus.entities.Payment;
 import br.com.rinha.quarkus.entities.Status;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.persistence.LockModeType;
+import jakarta.transaction.Transactional;
 
 import java.time.Instant;
 import java.util.List;
 
 @ApplicationScoped
+@Transactional
 public class PaymentRepository implements PanacheRepository<Payment> {
 
     public List<PaymentSummaryDTO> getPaymentSummaryBetween(Status status, Instant from, Instant to) {
@@ -26,6 +29,7 @@ public class PaymentRepository implements PanacheRepository<Payment> {
                 .setParameter("status", status)
                 .setParameter("from", from)
                 .setParameter("to", to)
+                .setLockMode(LockModeType.WRITE)
                 .getResultList();
     }
 }
